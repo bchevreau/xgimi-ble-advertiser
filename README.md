@@ -32,6 +32,7 @@ substitutions:
   name: xgimi-ble-advertiser
   friendly_name: XGIMI BLE Advertiser
   board: esp32dev  # or nodemcu-32s, lolin32, etc.
+```
 
 🔐 Required secrets.yaml entries
 yaml
