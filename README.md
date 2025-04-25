@@ -34,52 +34,49 @@ substitutions:
   board: esp32dev  # or nodemcu-32s, lolin32, etc.
 ```
 
-🔐 Required secrets.yaml entries
-yaml
-Copy
-Edit
+---
+
+## 🔐 Required `secrets.yaml` entries
+
+```yaml
 wifi_ssid: "YourWiFi"
 wifi_password: "YourWiFiPassword"
 xgimi_token: 5EEBCF58395438FFFFFFFF3043524B544D  # Replace with your own token
+```
+
 📌 The token is the 16-byte hex string used by your XGIMI projector's Bluetooth remote.
-
-🧠 How to Use
-After flashing, Home Assistant will discover a switch named:
-
-cpp
-Copy
-Edit
-switch.xgimi_ble_advertiser
-Turning it ON will:
-
-Broadcast your token via BLE for 5 seconds
-
-Automatically turn the switch OFF after the broadcast
-
-Place the ESP32 physically near your projector to ensure reliable signal.
-
-🧰 Advanced
-Written in C++ as a custom component
-
-Can be adapted to broadcast other tokens for similar BLE wake-up behaviors
-
-Fully compatible with ESPHome’s packages: feature
-
-🙌 Credits
-Based on Xgimi-4-Home-Assistant
-
-Created by @bchevreau
-
-🪪 License
-MIT — use freely, contribute, or fork.
-
-yaml
-Copy
-Edit
 
 ---
 
-## ✅ Next Step
+## 🧠 How to Use
 
-1. Copy this into your `README.md` (replacing the current file on GitHub)
-2. Commit it with a message like:
+- After flashing, Home Assistant will discover a switch named:
+  ```
+  switch.xgimi_ble_advertiser
+  ```
+- Turning it **ON** will:
+  - Broadcast your token via BLE for 5 seconds
+  - Automatically turn the switch OFF after the broadcast
+
+Place the ESP32 physically near your projector to ensure reliable signal.
+
+---
+
+## 🧰 Advanced
+
+- Written in C++ as a [custom component](esphome/xgimi_ble_advertiser.h)
+- Can be adapted to broadcast other tokens for similar BLE wake-up behaviors
+- Fully compatible with ESPHome’s `packages:` feature
+
+---
+
+## 🙌 Credits
+
+- Based on [Xgimi-4-Home-Assistant](https://github.com/manymuch/Xgimi-4-Home-Assistant)
+- Created by [@bchevreau](https://github.com/bchevreau)
+
+---
+
+## 🪪 License
+
+MIT — use freely, contribute, or fork.
