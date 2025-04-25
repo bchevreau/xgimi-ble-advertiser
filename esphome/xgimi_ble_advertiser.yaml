@@ -33,18 +33,35 @@ text_sensor:
     lambda: |-
       return {App.get_app_component<esphome::Application>()->get_secret("xgimi_token")};
 
-switch:
+number:
+  - platform: template
+    name: "BLE Broadcast Duration"
+    id: broadcast_duration
+    optimistic: true
+    min_value: 1
+    max_value: 30
+    step: 1
+    unit_of_measurement: "s"
+    initial_value: 5
+
+  - platform: template
+    name: "BLE Rebroadcast Interval"
+    id: broadcast_interval
+    optimistic: true
+    min_value: 1
+    max_value: 10
+    step: 1
+    unit_of_measurement: "s"
+    initial_value: 1
+
+button:
   - platform: template
     name: "XGIMI BLE Advertiser"
-    id: xgimi_ble_switch
-    turn_on_action:
+    id: xgimi_ble_button
+    on_press:
       - logger.log: "Triggering BLE advertisement for XGIMI projector"
       - lambda: |-
-          id(xgimi_ble).start_advertising(id(ble_token).state.c_str());
-      - delay: 5s
-      - lambda: |-
-          id(xgimi_ble).stop_advertising();
-      - switch.turn_off: xgimi_ble_switch
+          id(xgimi_ble).start_broadcast();
 
 custom_component:
   - lambda: |-
