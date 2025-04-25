@@ -15,8 +15,11 @@ It serves as a **fully wireless alternative** to a USB Bluetooth dongle passed t
   - Service UUID: `0x1812` (HID)
   - Appearance: `961` (Remote Control)
   - Device name: `"Bluetooth 4.0 RC"`
-- Triggered by a **Home Assistant switch entity**
+- Triggered by a **Home Assistant button entity**
 - Fully ESPHome-compatible and OTA-updatable
+- Configurable:
+  - 🔁 How long to broadcast
+  - 🔁 How often to repeat advertisement during that time
 
 ---
 
@@ -48,17 +51,23 @@ xgimi_token: 5EEBCF58395438FFFFFFFF3043524B544D  # Replace with your own token
 
 ---
 
-## 🧠 How to Use
+## 🔘 Home Assistant Entities Created
 
-- After flashing, Home Assistant will discover a switch named:
-  ```
-  switch.xgimi_ble_advertiser
-  ```
-- Turning it **ON** will:
-  - Broadcast your token via BLE for 5 seconds
-  - Automatically turn the switch OFF after the broadcast
+- `button.xgimi_ble_advertiser` → triggers the BLE broadcast
+- `number.ble_broadcast_duration` → how long to broadcast (in seconds)
+- `number.ble_rebroadcast_interval` → how often to repeat the broadcast (in seconds)
 
-Place the ESP32 physically near your projector to ensure reliable signal.
+All values are configurable directly from the HA dashboard — no firmware flashing needed.
+
+---
+
+## 🧠 How It Works
+
+- When the button is pressed:
+  - It begins broadcasting your BLE token every X seconds
+  - It stops after Y seconds
+- Place your ESP32 close to the projector for best results
+- Ideal for wall-mounted ESP32s or when avoiding USB passthrough issues
 
 ---
 
@@ -67,12 +76,14 @@ Place the ESP32 physically near your projector to ensure reliable signal.
 - Written in C++ as a [custom component](esphome/xgimi_ble_advertiser.h)
 - Can be adapted to broadcast other tokens for similar BLE wake-up behaviors
 - Fully compatible with ESPHome’s `packages:` feature
+- BLE advertisement includes service UUID and appearance for XGIMI compatibility
 
 ---
 
 ## 🙌 Credits
 
 - Based on [Xgimi-4-Home-Assistant](https://github.com/manymuch/Xgimi-4-Home-Assistant)
+- BLE protocol analysis confirmed via Bluetooth logs
 - Created by [@bchevreau](https://github.com/bchevreau)
 
 ---
