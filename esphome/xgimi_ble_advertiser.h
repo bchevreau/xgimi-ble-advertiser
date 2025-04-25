@@ -6,19 +6,34 @@
 
 class XgimiBleAdvertiser : public Component {
  public:
-  void start_advertising(const char* hex_token) {
-    ESP_LOGI("XgimiBLE", "Starting BLE advertisement with token: %s", hex_token);
+  void start_broadcast() {
+    ESP_LOGI("XgimiBLE", "Starting broadcast sequence.");
+
+    int total_duration = int(id(broadcast_duration).state);
+    int interval = int(id(broadcast_interval).state);
+
+    ESP_LOGI("XgimiBLE", "Total Duration: %d seconds", total_duration);
+    ESP_LOGI("XgimiBLE", "Rebroadcast Interval: %d seconds", interval);
+
+    for (int elapsed = 0; elapsed < total_duration; elapsed += interval) {
+      advertise_once();
+      delay(interval * 1000);
+    }
+
+    stop_advertising();
+  }
+
+  void advertise_once() {
+    ESP_LOGI("XgimiBLE", "Sending BLE advertisement...");
 
     uint8_t token_bytes[16];
-    if (!parse_token(hex_token, token_bytes)) {
-      ESP_LOGW("XgimiBLE", "Invalid token format. Token must be 32 hex characters.");
+    if (!parse_token(id(ble_token).state.c_str(), token_bytes)) {
+      ESP_LOGW("XgimiBLE", "Invalid token format. Aborting.");
       return;
     }
 
-    // Set the BLE device name
     esp_ble_gap_set_device_name("Bluetooth 4.0 RC");
 
-    // Create the full advertisement data
     uint8_t raw_adv_data[3 + 2 + 16 + 3 + 3] = {
       0x02, 0x01, 0x06,                     // Flags
       0x11, 0xFF, 0x46, 0x00,               // Manufacturer Data: len=0x11, type=0xFF, company ID=0x0046
@@ -29,19 +44,11 @@ class XgimiBleAdvertiser : public Component {
 
     memcpy(&raw_adv_data[7], token_bytes, 16);
 
-    // Stop previous advertisements
     esp_ble_gap_stop_advertising();
+    esp_ble_gap_config_adv_data_raw(raw_adv_data, sizeof(raw_adv_data));
 
-    // Configure raw advertisement
-    esp_err_t err = esp_ble_gap_config_adv_data_raw(raw_adv_data, sizeof(raw_adv_data));
-    if (err != ESP_OK) {
-      ESP_LOGW("XgimiBLE", "Failed to configure advertisement data. Error code: %d", err);
-      return;
-    }
+    delay(100);
 
-    delay(100);  // Let the BLE stack process config
-
-    // Set advertisement parameters
     esp_ble_adv_params_t adv_params = {};
     adv_params.adv_int_min = 0x20;
     adv_params.adv_int_max = 0x40;
@@ -50,10 +57,7 @@ class XgimiBleAdvertiser : public Component {
     adv_params.channel_map = ADV_CHNL_ALL;
     adv_params.adv_filter_policy = ADV_FILTER_ALLOW_SCAN_ANY_CON_ANY;
 
-    err = esp_ble_gap_start_advertising(&adv_params);
-    if (err != ESP_OK) {
-      ESP_LOGW("XgimiBLE", "Failed to start advertising. Error code: %d", err);
-    }
+    esp_ble_gap_start_advertising(&adv_params);
   }
 
   void stop_advertising() {
