@@ -1,17 +1,25 @@
-esphome:
+substitutions:
   name: xgimi-ble-advertiser
   friendly_name: XGIMI BLE Advertiser
+  board: esp32dev
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
   includes:
     - xgimi_ble_advertiser.h
 
 esp32:
-  board: esp32dev
+  board: ${board}
   framework:
     type: esp-idf
 
 logger:
+
 api:
+
 ota:
+
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
@@ -20,8 +28,8 @@ text_sensor:
   - platform: template
     name: "XGIMI BLE Token"
     id: ble_token
-    # This token is used for BLE advertisement. Add your value to secrets.yaml in a new line like so
-    # xgimi_token: 5EEBCF58395438FFFFFFFF3043524B544F
+    # This token is used for BLE advertisement. Add your value to secrets.yaml like:
+    # xgimi_token: 5EEBCF58395438FFFFFFFF3043524B544D
     lambda: |-
       return {App.get_app_component<esphome::Application>()->get_secret("xgimi_token")};
 
@@ -30,6 +38,7 @@ switch:
     name: "XGIMI BLE Advertiser"
     id: xgimi_ble_switch
     turn_on_action:
+      - logger.log: "Triggering BLE advertisement for XGIMI projector"
       - lambda: |-
           id(xgimi_ble).start_advertising(id(ble_token).state.c_str());
       - delay: 5s
