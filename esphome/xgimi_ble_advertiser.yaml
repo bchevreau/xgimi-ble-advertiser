@@ -7,7 +7,7 @@ esphome:
   name: ${name}
   friendly_name: ${friendly_name}
   includes:
-    - xgimi_ble_advertiser.h
+    - esphome/xgimi_ble_advertiser.h
 
 esp32:
   board: ${board}
