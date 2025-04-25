@@ -1,0 +1,38 @@
+esphome:
+  name: xgimi-ble-advertiser
+  friendly_name: XGIMI BLE Advertiser
+  includes:
+    - xgimi_ble_advertiser.h
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+
+logger:
+api:
+ota:
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+switch:
+  - platform: template
+    name: "XGIMI BLE Advertiser"
+    id: xgimi_ble_switch
+    turn_on_action:
+      - logger.log: "Starting XGIMI BLE Advertisement"
+      - lambda: |-
+          id(xgimi_ble).start_advertising();
+      - delay: 5s
+      - lambda: |-
+          id(xgimi_ble).stop_advertising();
+      - switch.turn_off: xgimi_ble_switch
+
+custom_component:
+  - lambda: |-
+      auto xgimi = new XgimiBleAdvertiser();
+      App.register_component(xgimi);
+      return {xgimi};
+    components:
+      - id: xgimi_ble
