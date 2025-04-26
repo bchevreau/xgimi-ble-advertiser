@@ -3,6 +3,8 @@ import esphome.config_validation as cv
 from esphome import automation
 from esphome.const import CONF_ID
 
+import esphome.components.text_sensor as text_sensor
+
 CONF_BLE_TOKEN_SENSOR = "ble_token_sensor"
 
 xgimi_ble_advertiser_ns = cg.esphome_ns.namespace('xgimi_ble_advertiser')
@@ -10,7 +12,7 @@ XgimiBleAdvertiser = xgimi_ble_advertiser_ns.class_('XgimiBleAdvertiser', cg.Com
 
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(XgimiBleAdvertiser),
-    cv.Required(CONF_BLE_TOKEN_SENSOR): cv.use_id(cg.TextSensor),
+    cv.Required(CONF_BLE_TOKEN_SENSOR): cv.use_id(text_sensor.TextSensor),
 }).extend(cv.COMPONENT_SCHEMA)
 
 async def to_code(config):
