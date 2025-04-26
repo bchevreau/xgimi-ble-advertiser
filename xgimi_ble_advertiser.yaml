@@ -1,0 +1,71 @@
+external_components:
+  - source:
+      type: git
+      url: https://github.com/bchevreau/xgimi-ble-advertiser
+      ref: main
+    refresh: 0s
+    components: [xgimi_ble_advertiser]
+
+substitutions:
+  name: xgimi-ble-advertiser
+  friendly_name: XGIMI BLE Advertiser
+  board: esp32dev
+
+esphome:
+  name: xgimi-advertiser
+  friendly_name: Xgimi Advertiser
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+    sdkconfig_options:
+      CONFIG_BT_ENABLED: y
+      CONFIG_BT_NIMBLE_ENABLED: n
+      CONFIG_BT_BLUEDROID_ENABLED: y
+      CONFIG_BT_BLUEDROID_BT_BLE_ENABLED: y
+
+logger:
+
+api:
+
+ota:
+  platform: esphome
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+text_sensor:
+  - platform: template
+    name: "XGIMI BLE Token"
+    id: ble_token
+    internal: true
+    lambda: |-
+      return {"5EEBCF58395438FFFFFFFF3043524B544D"};
+    update_interval: never
+
+number:
+  - platform: template
+    name: "BLE Broadcast Duration"
+    id: broadcast_duration
+    optimistic: true
+    min_value: 1
+    max_value: 30
+    step: 1
+    unit_of_measurement: "s"
+    initial_value: 5
+
+button:
+  - platform: template
+    name: "XGIMI BLE Advertiser"
+    id: xgimi_ble_button
+    on_press:
+      - logger.log:
+          format: "Triggering BLE advertisement for XGIMI projector"
+      - lambda: |-
+          id(xgimi_ble).start_advertising(id(broadcast_duration).state);
+
+xgimi_ble_advertiser:
+  id: xgimi_ble
+  ble_token_sensor: ble_token
