@@ -1,77 +1,116 @@
 #include "esphome.h"
 #include "esp_gap_ble_api.h"
-#include "esp_gatts_api.h"
+#include "esp_bt.h"
 #include "esp_bt_main.h"
 #include "esp_bt_device.h"
+#include "esp_log.h"
+
+namespace esphome {
+namespace xgimi_ble_advertiser {
+
+static const char *const TAG = "xgimi_ble_advertiser";
 
 class XgimiBleAdvertiser : public Component {
  public:
-  void start_broadcast() {
-    ESP_LOGI("XgimiBLE", "Starting broadcast sequence.");
+  void setup() override {
+    ESP_LOGI(TAG, "Setting up XGIMI BLE advertiser...");
 
-    int total_duration = int(id(broadcast_duration).state);
-    int interval = int(id(broadcast_interval).state);
-
-    ESP_LOGI("XgimiBLE", "Total Duration: %d seconds", total_duration);
-    ESP_LOGI("XgimiBLE", "Rebroadcast Interval: %d seconds", interval);
-
-    for (int elapsed = 0; elapsed < total_duration; elapsed += interval) {
-      advertise_once();
-      delay(interval * 1000);
+    // Initialize BLE stack if not already started
+    if (!btStarted()) {
+      ESP_LOGI(TAG, "Starting Bluetooth controller...");
+      esp_bt_controller_config_t bt_cfg = BT_CONTROLLER_INIT_CONFIG_DEFAULT();
+      esp_bt_controller_init(&bt_cfg);
+      esp_bt_controller_enable(ESP_BT_MODE_BLE);
+      esp_bluedroid_init();
+      esp_bluedroid_enable();
+    } else {
+      ESP_LOGI(TAG, "Bluetooth controller already started.");
     }
 
-    stop_advertising();
+    this->advertising_active_ = false;
+    this->last_rebroadcast_time_ = 0;
   }
 
-  void advertise_once() {
-    ESP_LOGI("XgimiBLE", "Sending BLE advertisement...");
+  void loop() override {
+    if (!this->advertising_active_)
+      return;
 
-    uint8_t token_bytes[16];
-    if (!parse_token(id(ble_token).state.c_str(), token_bytes)) {
-      ESP_LOGW("XgimiBLE", "Invalid token format. Aborting.");
+    uint32_t now = millis();
+
+    // Stop advertising after the configured duration
+    if (now - this->advertising_start_time_ > (get_advertisement_duration() * 1000UL)) {
+      stop_advertising();
+      this->last_rebroadcast_time_ = now;
+    }
+
+    // Check if we need to rebroadcast after interval
+    if (!this->advertising_active_ && get_advertisement_interval() > 0) {
+      if (now - this->last_rebroadcast_time_ > (get_advertisement_interval() * 1000UL)) {
+        start_advertising();
+      }
+    }
+  }
+
+  void start_advertising() {
+    if (this->advertising_active_) {
+      ESP_LOGW(TAG, "Already advertising, skipping...");
       return;
     }
 
-    esp_ble_gap_set_device_name("Bluetooth 4.0 RC");
+    ESP_LOGI(TAG, "Starting BLE advertising...");
 
-    uint8_t raw_adv_data[3 + 2 + 16 + 3 + 3] = {
-      0x02, 0x01, 0x06,                     // Flags
-      0x11, 0xFF, 0x46, 0x00,               // Manufacturer Data: len=0x11, type=0xFF, company ID=0x0046
-      // token_bytes will go here [16 bytes]
-      0x03, 0x03, 0x12, 0x18,               // Complete List of 16-bit Service UUIDs: 0x1812
-      0x03, 0x19, 0xC1, 0x03                // Appearance: 961 (0x03C1 little endian)
+    uint8_t adv_data[16] = {
+        0x5E, 0xEB, 0xCF, 0x58, 0x39, 0x54, 0x38, 0xFF,
+        0xFF, 0xFF, 0x30, 0x43, 0x52, 0x4B, 0x54, 0x4D};
+
+    esp_ble_gap_config_adv_data_raw(adv_data, sizeof(adv_data));
+
+    esp_ble_adv_params_t adv_params = {
+        .adv_int_min = 0x20,
+        .adv_int_max = 0x40,
+        .adv_type = ADV_TYPE_NONCONN_IND,
+        .own_addr_type = BLE_ADDR_TYPE_PUBLIC,
+        .channel_map = ADV_CHNL_ALL,
+        .adv_filter_policy = ADV_FILTER_ALLOW_SCAN_ANY_CON_ANY,
     };
 
-    memcpy(&raw_adv_data[7], token_bytes, 16);
-
-    esp_ble_gap_stop_advertising();
-    esp_ble_gap_config_adv_data_raw(raw_adv_data, sizeof(raw_adv_data));
-
-    delay(100);
-
-    esp_ble_adv_params_t adv_params = {};
-    adv_params.adv_int_min = 0x20;
-    adv_params.adv_int_max = 0x40;
-    adv_params.adv_type = ADV_TYPE_IND;
-    adv_params.own_addr_type = BLE_ADDR_TYPE_PUBLIC;
-    adv_params.channel_map = ADV_CHNL_ALL;
-    adv_params.adv_filter_policy = ADV_FILTER_ALLOW_SCAN_ANY_CON_ANY;
-
     esp_ble_gap_start_advertising(&adv_params);
+
+    this->advertising_start_time_ = millis();
+    this->advertising_active_ = true;
   }
 
   void stop_advertising() {
-    ESP_LOGI("XgimiBLE", "Stopping BLE advertising.");
+    if (!this->advertising_active_) {
+      ESP_LOGW(TAG, "Not advertising, nothing to stop...");
+      return;
+    }
+
+    ESP_LOGI(TAG, "Stopping BLE advertising...");
     esp_ble_gap_stop_advertising();
+    this->advertising_active_ = false;
   }
 
- private:
-  bool parse_token(const char* hex, uint8_t* out_bytes) {
-    if (strlen(hex) != 32) return false;
-    for (int i = 0; i < 16; i++) {
-      char byte_str[3] = { hex[i * 2], hex[i * 2 + 1], '\0' };
-      out_bytes[i] = (uint8_t)strtol(byte_str, nullptr, 16);
+  // Helper methods to get settings from Home Assistant
+  float get_advertisement_duration() {
+    if (id(ble_advertisement_duration).has_state()) {
+      return id(ble_advertisement_duration).state;
     }
-    return true;
+    return 5.0;  // default 5s if not set
   }
+
+  float get_advertisement_interval() {
+    if (id(ble_advertisement_interval).has_state()) {
+      return id(ble_advertisement_interval).state;
+    }
+    return 0.0;  // 0 = no rebroadcast by default
+  }
+
+ protected:
+  bool advertising_active_;
+  uint32_t advertising_start_time_;
+  uint32_t last_rebroadcast_time_;
 };
+
+}  // namespace xgimi_ble_advertiser
+}  // namespace esphome
