@@ -1,7 +1,7 @@
 #pragma once
 
 #include "esphome/core/component.h"
-#include "esphome/core/helpers.h" 
+#include "esphome/components/text_sensor/text_sensor.h"
 #include "esp_gap_ble_api.h"
 #include "esp_bt.h"
 #include "esp_bt_main.h"
@@ -16,6 +16,10 @@ static const char *const TAG = "xgimi_ble_advertiser";
 
 class XgimiBleAdvertiser : public Component {
  public:
+  void set_ble_token_sensor(text_sensor::TextSensor *sensor) {
+    this->ble_token_sensor_ = sensor;
+  }
+
   void setup() override {
     ESP_LOGI(TAG, "Setting up XGIMI BLE advertiser...");
 
@@ -33,7 +37,6 @@ class XgimiBleAdvertiser : public Component {
 
     uint32_t now = esp_timer_get_time() / 1000;
 
-    // Stop advertising after duration
     if (now - this->advertising_start_time_ > (this->advertisement_duration_ * 1000UL)) {
       stop_advertising();
     }
@@ -45,11 +48,22 @@ class XgimiBleAdvertiser : public Component {
       return;
     }
 
-    ESP_LOGI(TAG, "Starting BLE advertising...");
+    if (this->ble_token_sensor_ == nullptr) {
+      ESP_LOGE(TAG, "BLE token sensor not set!");
+      return;
+    }
 
-    uint8_t adv_data[16] = {
-        0x5E, 0xEB, 0xCF, 0x58, 0x39, 0x54, 0x38, 0xFF,
-        0xFF, 0xFF, 0x30, 0x43, 0x52, 0x4B, 0x54, 0x4D};
+    std::string token = this->ble_token_sensor_->state;
+    if (token.empty() || token.length() != 32) {
+      ESP_LOGE(TAG, "Invalid BLE token format!");
+      return;
+    }
+
+    uint8_t adv_data[16];
+    for (int i = 0; i < 16; i++) {
+      std::string byte_str = token.substr(i * 2, 2);
+      adv_data[i] = strtol(byte_str.c_str(), nullptr, 16);
+    }
 
     esp_ble_gap_config_adv_data_raw(adv_data, sizeof(adv_data));
 
@@ -66,7 +80,7 @@ class XgimiBleAdvertiser : public Component {
 
     this->advertising_start_time_ = esp_timer_get_time() / 1000;
     this->advertising_active_ = true;
-    this->advertisement_duration_ = duration_seconds;  // record duration for stopping
+    this->advertisement_duration_ = duration_seconds;
   }
 
   void stop_advertising() {
@@ -83,7 +97,8 @@ class XgimiBleAdvertiser : public Component {
  protected:
   bool advertising_active_{false};
   uint32_t advertising_start_time_{0};
-  float advertisement_duration_{5.0};  // default 5 seconds
+  float advertisement_duration_{5.0};
+  text_sensor::TextSensor *ble_token_sensor_{nullptr};
 };
 
 }  // namespace xgimi_ble_advertiser
