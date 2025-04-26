@@ -1,4 +1,6 @@
-#include "esphome.h"
+#pragma once
+
+#include "esphome/core/component.h"
 #include "esp_gap_ble_api.h"
 #include "esp_bt.h"
 #include "esp_bt_main.h"
@@ -15,20 +17,12 @@ class XgimiBleAdvertiser : public Component {
   void setup() override {
     ESP_LOGI(TAG, "Setting up XGIMI BLE advertiser...");
 
-    // Initialize BLE stack if not already started
-    if (!btStarted()) {
-      ESP_LOGI(TAG, "Starting Bluetooth controller...");
-      esp_bt_controller_config_t bt_cfg = BT_CONTROLLER_INIT_CONFIG_DEFAULT();
-      esp_bt_controller_init(&bt_cfg);
-      esp_bt_controller_enable(ESP_BT_MODE_BLE);
-      esp_bluedroid_init();
-      esp_bluedroid_enable();
-    } else {
-      ESP_LOGI(TAG, "Bluetooth controller already started.");
-    }
-
-    this->advertising_active_ = false;
-    this->last_rebroadcast_time_ = 0;
+    ESP_LOGI(TAG, "Starting Bluetooth controller...");
+    esp_bt_controller_config_t bt_cfg = BT_CONTROLLER_INIT_CONFIG_DEFAULT();
+    esp_bt_controller_init(&bt_cfg);
+    esp_bt_controller_enable(ESP_BT_MODE_BLE);
+    esp_bluedroid_init();
+    esp_bluedroid_enable();
   }
 
   void loop() override {
@@ -37,21 +31,13 @@ class XgimiBleAdvertiser : public Component {
 
     uint32_t now = millis();
 
-    // Stop advertising after the configured duration
-    if (now - this->advertising_start_time_ > (get_advertisement_duration() * 1000UL)) {
+    // Stop advertising after duration
+    if (now - this->advertising_start_time_ > (this->advertisement_duration_ * 1000UL)) {
       stop_advertising();
-      this->last_rebroadcast_time_ = now;
-    }
-
-    // Check if we need to rebroadcast after interval
-    if (!this->advertising_active_ && get_advertisement_interval() > 0) {
-      if (now - this->last_rebroadcast_time_ > (get_advertisement_interval() * 1000UL)) {
-        start_advertising();
-      }
     }
   }
 
-  void start_advertising() {
+  void start_advertising(float duration_seconds = 5.0f) {
     if (this->advertising_active_) {
       ESP_LOGW(TAG, "Already advertising, skipping...");
       return;
@@ -78,6 +64,7 @@ class XgimiBleAdvertiser : public Component {
 
     this->advertising_start_time_ = millis();
     this->advertising_active_ = true;
+    this->advertisement_duration_ = duration_seconds;  // record duration for stopping
   }
 
   void stop_advertising() {
@@ -91,25 +78,10 @@ class XgimiBleAdvertiser : public Component {
     this->advertising_active_ = false;
   }
 
-  // Helper methods to get settings from Home Assistant
-  float get_advertisement_duration() {
-    if (id(ble_advertisement_duration).has_state()) {
-      return id(ble_advertisement_duration).state;
-    }
-    return 5.0;  // default 5s if not set
-  }
-
-  float get_advertisement_interval() {
-    if (id(ble_advertisement_interval).has_state()) {
-      return id(ble_advertisement_interval).state;
-    }
-    return 0.0;  // 0 = no rebroadcast by default
-  }
-
  protected:
-  bool advertising_active_;
-  uint32_t advertising_start_time_;
-  uint32_t last_rebroadcast_time_;
+  bool advertising_active_{false};
+  uint32_t advertising_start_time_{0};
+  float advertisement_duration_{5.0};  // default 5 seconds
 };
 
 }  // namespace xgimi_ble_advertiser
