@@ -1,6 +1,7 @@
 #pragma once
 
 #include "esphome/core/component.h"
+#include "esphome/core/helpers.h" 
 #include "esp_gap_ble_api.h"
 #include "esp_bt.h"
 #include "esp_bt_main.h"
