@@ -13,7 +13,7 @@ CONFIG_SCHEMA = cv.Schema({
     cv.Required(CONF_BLE_TOKEN_SENSOR): cv.use_id(cg.TextSensor),
 }).extend(cv.COMPONENT_SCHEMA)
 
-def to_code(config):
+async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
     token_sensor = await cg.get_variable(config[CONF_BLE_TOKEN_SENSOR])
