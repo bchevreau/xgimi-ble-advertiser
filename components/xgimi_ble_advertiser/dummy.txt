@@ -1,0 +1,195 @@
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
+This is a dummy file to prevent ESPHome shallow clone from skipping the __init__.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+(Repeat a few hundred lines)
