@@ -7,6 +7,7 @@
 #include "esp_bt_main.h"
 #include "esp_bt_device.h"
 #include "esp_log.h"
+#include "esp_timer.h"
 
 namespace esphome {
 namespace xgimi_ble_advertiser {
