@@ -30,7 +30,7 @@ class XgimiBleAdvertiser : public Component {
     if (!this->advertising_active_)
       return;
 
-    uint32_t now = esphome::millis();
+    uint32_t now = esp_timer_get_time() / 1000;
 
     // Stop advertising after duration
     if (now - this->advertising_start_time_ > (this->advertisement_duration_ * 1000UL)) {
@@ -63,7 +63,7 @@ class XgimiBleAdvertiser : public Component {
 
     esp_ble_gap_start_advertising(&adv_params);
 
-    this->advertising_start_time_ = esphome::millis();
+    this->advertising_start_time_ = esp_timer_get_time() / 1000;
     this->advertising_active_ = true;
     this->advertisement_duration_ = duration_seconds;  // record duration for stopping
   }
