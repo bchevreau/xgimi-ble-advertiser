@@ -57,7 +57,7 @@ xgimi_token: 5EEBCF58395438FFFFFFFF3043524B544D  # Replace with your own token
 - `number.ble_broadcast_duration` → how long to broadcast (in seconds)
 - `number.ble_rebroadcast_interval` → how often to repeat the broadcast (in seconds)
 
-All values are configurable directly from the HA dashboard — no firmware flashing needed.
+All values are configurable directly from the HA dashboard — no firmware flashing needed. (pending changes)
 
 ---
 
