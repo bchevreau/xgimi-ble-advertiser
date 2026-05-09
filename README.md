@@ -29,7 +29,7 @@ Create a new ESPHome device and paste the following:
 
 ```yaml
 packages:
-  xgimi_ble: github://bchevreau/xgimi-ble-advertiser/esphome/xgimi_ble_advertiser.yaml@main
+  xgimi_ble: github://bchevreau/xgimi-ble-advertiser/xgimi_ble_advertiser.yaml@main
 
 substitutions:
   name: xgimi-ble-advertiser
