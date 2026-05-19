@@ -1,3 +1,14 @@
+# Archived: replaced by ESP32 Bluetooth Proxy XGIMI Wake
+
+This repository is archived and no longer maintained.
+
+Use the newer replacement instead:
+
+https://github.com/bchevreau/esp32-bluetooth-proxy-xgimi-wake
+
+The new repo is a direct, cleaner replacement for this old custom C++ ESPHome component. It provides the same XGIMI projector BLE wake behavior as a reusable ESPHome package, with Bluetooth proxy support and without maintaining a separate custom component.
+
+
 # XGIMI BLE Advertiser for ESPHome
 
 This ESPHome project broadcasts a custom BLE advertisement that emulates the power-on command of a Bluetooth remote used by XGIMI projectors (e.g., Horizon, MoGo Pro, etc.).
